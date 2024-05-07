@@ -3,7 +3,14 @@
     <style name="Base.Theme.QuizPDD" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="fontFamily">@font/roboto</item>
     </style>
 
     <style name="Theme.QuizPDD" parent="Base.Theme.QuizPDD" />
+
+    <style name="App.Material3.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">@color/app_m3_text_button_background_color_selector</item>
+        <item name="strokeColor">@color/app_button_outline_color_selector</item>
+        <item name="android:textColor">@color/app_text_button_foreground_color_selector</item>
+    </style>
 </resources>
