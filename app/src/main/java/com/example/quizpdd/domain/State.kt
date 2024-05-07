@@ -1,4 +1,4 @@
-package com.example.quizpdd.domain.model
+package com.example.quizpdd.domain
 
 sealed class State<out T> {
     data object Loading : State<Nothing>()

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.quizpdd.ui.TopicFragment"
+        android:name="com.example.quizpdd.ui.topic.TopicFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_topic" >
     </fragment>

@@ -1,4 +1,4 @@
-package com.example.quizpdd.ui
+package com.example.quizpdd.ui.topic
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentTopicBinding
 import com.example.quizpdd.domain.model.Topic
-import com.example.quizpdd.domain.model.State
+import com.example.quizpdd.domain.State
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,7 +21,7 @@ class TopicFragment : Fragment() {
     private var _binding: FragmentTopicBinding? = null
     private val binding get() = _binding!!
     private val questionGroupAdapter by lazy {
-        QuestionGroupAdapter { id ->
+        TopicAdapter { id ->
             Toast.makeText(requireActivity(), "$id", Toast.LENGTH_SHORT).show()
         }
     }

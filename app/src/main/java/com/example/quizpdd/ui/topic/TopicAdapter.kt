@@ -1,4 +1,4 @@
-package com.example.quizpdd.ui
+package com.example.quizpdd.ui.topic
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.quizpdd.databinding.ViewholderQuestionBinding
 import com.example.quizpdd.domain.model.Topic
 
-class QuestionGroupAdapter(
+class TopicAdapter(
     private val onItemClickCallback: (Int) -> Unit
-): RecyclerView.Adapter<QuestionGroupAdapter.ViewHolder>() {
+): RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 
     private lateinit var binding: ViewholderQuestionBinding
 
