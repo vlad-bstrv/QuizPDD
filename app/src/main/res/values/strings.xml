@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Quiz PDD</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="continue_text">continue</string>
+    <string name="back">Назад</string>
+    <string name="study">Учиться</string>
+    <string name="training">Тренировка</string>
+    <string name="restart">Рестарт</string>
+    <string name="next_question">Следующий вопрос</string>
+    <string name="reload">Reload</string>
+    <string name="excellent">Отлично</string>
+    <string name="result">Результат %1$d</string>
 </resources>

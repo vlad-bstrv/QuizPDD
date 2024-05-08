@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DrawableText" parent="Widget.AppCompat.TextView">
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:textColor">@color/yellow_dark</item>
+        <item name="drawableTint">@color/yellow_dark</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AnswerButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/background_main</item>
+        <item name="backgroundTint">@color/yellow_dark</item>
+        <item name="android:minLines">4</item>
+    </style>
+</resources>
