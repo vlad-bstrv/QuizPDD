@@ -7,4 +7,8 @@
     <string name="study">Учиться</string>
     <string name="training">Тренировка</string>
     <string name="restart">Рестарт</string>
+    <string name="next_question">Следующий вопрос</string>
+    <string name="reload">Reload</string>
+    <string name="excellent">Отлично</string>
+    <string name="result">Результат %1$d</string>
 </resources>

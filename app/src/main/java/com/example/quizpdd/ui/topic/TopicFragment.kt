@@ -88,7 +88,7 @@ class TopicFragment : Fragment() {
 
     private fun showError(throwable: Throwable) {
         val snackbar = Snackbar.make(binding.root, "${throwable.message}", Snackbar.LENGTH_LONG)
-        snackbar.setAction("Reload") {
+        snackbar.setAction(getString(R.string.reload)) {
             //TODO reload data
         }
         snackbar.show()

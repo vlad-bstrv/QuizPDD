@@ -1,8 +1,11 @@
 package com.example.quizpdd.domain.repository
 
-import com.example.quizpdd.domain.model.Topic
+import com.example.quizpdd.domain.model.Question
 import kotlinx.coroutines.flow.Flow
 
 interface QuestionRepository {
-    fun fetchTopics(): Flow<List<Topic>>
+
+    fun fetchQuestion(topicId: Int): Flow<List<Question>>
+
+    fun saveResult(rightAnswers: Int, topicId: Int)
 }
