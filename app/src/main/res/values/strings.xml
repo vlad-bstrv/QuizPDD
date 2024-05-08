@@ -11,4 +11,8 @@
     <string name="reload">Reload</string>
     <string name="excellent">Отлично</string>
     <string name="result">Результат %1$d</string>
+    <string name="you_are_welcome">Добро пожаловать!</string>
+    <string name="enter_your_email">Введите свой Email</string>
+    <string name="enter_your_password">Введите свой пароль</string>
+    <string name="login">Войти</string>
 </resources>

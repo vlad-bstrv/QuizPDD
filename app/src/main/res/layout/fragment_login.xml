@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.auth.LoginFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/app_pading">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="120dp"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_are_welcome"
+        android:textColor="@color/yellow_dark"
+        android:textSize="24sp"
+        android:layout_marginTop="24dp"/>
+    
+    <EditText
+        android:id="@+id/email_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/background_main"
+        android:ems="10"
+        android:background="@drawable/edittext_bg"
+        android:inputType="textEmailAddress"
+        android:hint="@string/enter_your_email"
+        android:autofillHints="emailAddress" />
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/background_main"
+        android:ems="10"
+        android:background="@drawable/edittext_bg"
+        android:inputType="textPassword"
+        android:hint="@string/enter_your_password"
+        android:autofillHints="password" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/background_main"
+        android:backgroundTint="@color/yellow_dark"
+        android:text="@string/login"/>
+
+</LinearLayout>
