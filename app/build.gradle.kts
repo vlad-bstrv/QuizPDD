@@ -53,4 +53,7 @@ dependencies {
 
     // Koin
     implementation(libs.koin.android)
+
+    // Coil
+    implementation(libs.coil)
 }

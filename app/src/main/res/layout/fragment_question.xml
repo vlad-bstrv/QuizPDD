@@ -1,38 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/app_pading"
     tools:context=".ui.question.QuestionFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/back_arrow_btn"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/baseline_arrow_back_ios_24"
-            app:tint="@color/yellow_dark"
-            android:importantForAccessibility="no" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/back"
-            android:textColor="@color/yellow_dark" />
-    </LinearLayout>
-
     <TextView
-        android:id="@+id/text_view"
+        android:id="@+id/back_text_view"
+        style="@style/DrawableText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        tools:text="123"
-        android:textColor="@color/yellow_dark"/>
+        android:text="@string/back"
+        app:drawableLeftCompat="@drawable/baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/restart_text_view"
+        style="@style/DrawableText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restart"
+        app:drawableRightCompat="@drawable/arrow_ccw_svgrepo_com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/question_number_text_view"
+        style="@style/DrawableText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        tools:text="Question 1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:drawableLeftCompat="@drawable/study_svgrepo_com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_text_view" />
+
+    <TextView
+        android:id="@+id/question_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        tools:text="Что должно иметь решающее значение при выборе водителем скорости движения в тёмное время суток?"
+        android:textColor="@color/yellow_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question_number_text_view" />
+
+    <ImageView
+        android:id="@+id/question_image_view"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question_text_view"
+        android:importantForAccessibility="no" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/answer_one_btn"
+            style="@style/AnswerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Предельные ограничения скорости, установленные Правилами" />
+
+        <Button
+            android:id="@+id/answer_two_btn"
+            style="@style/AnswerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Максимальная конструктивная скорость, установленная технической характеристикой используемого транспортного средства" />
+
+        <Button
+            android:id="@+id/answer_three_btn"
+            style="@style/AnswerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Условия видимости" />
+
+        <Button
+            android:id="@+id/answer_four_btn"
+            style="@style/AnswerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Предельные ограничения скорости, установленные Правилами" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

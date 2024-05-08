@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import coil.load
 import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentQuestionBinding
 
@@ -23,10 +24,12 @@ class QuestionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textView.text = arguments?.getInt(idKey).toString()
-        binding.backArrowBtn.setOnClickListener {
+//        binding.textView.text = arguments?.getInt(idKey).toString()
+        binding.backTextView.setOnClickListener {
             it.findNavController().navigate(R.id.action_questionFragment_to_topicFragment)
         }
+
+        binding.questionImageView.load("https://raw.githubusercontent.com/etspring/pdd_russia/master/images/C_D/011505ad4880a138cea38e6937815016.jpg")
     }
 
     companion object {

@@ -6,4 +6,5 @@
     <string name="back">Назад</string>
     <string name="study">Учиться</string>
     <string name="training">Тренировка</string>
+    <string name="restart">Рестарт</string>
 </resources>
