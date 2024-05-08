@@ -1,24 +1,25 @@
 package com.example.quizpdd.ui.topic
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.quizpdd.databinding.ViewholderQuestionBinding
+import com.example.quizpdd.databinding.ViewholderTopicBinding
 import com.example.quizpdd.domain.model.Topic
 
 class TopicAdapter(
     private val onItemClickCallback: (Int) -> Unit
 ): RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 
-    private lateinit var binding: ViewholderQuestionBinding
+    private lateinit var binding: ViewholderTopicBinding
 
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        binding = ViewholderQuestionBinding.inflate(inflater, parent, false)
+        binding = ViewholderTopicBinding.inflate(inflater, parent, false)
         return ViewHolder()
     }
 
@@ -26,9 +27,11 @@ class TopicAdapter(
         return differ.currentList.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val binding = ViewholderQuestionBinding.bind(holder.itemView)
+        val binding = ViewholderTopicBinding.bind(holder.itemView)
         binding.apply {
+            titleNumberTextView.text = (position + 1).toString()
             titleTextView.text = differ.currentList[position].title
             progressIndicator.max = differ.currentList[position].allQuestion
             progressIndicator.progress = differ.currentList[position].progress

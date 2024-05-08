@@ -7,17 +7,19 @@
     android:background="@drawable/question_bg"
     android:layout_marginVertical="8dp">
 
-    <ImageView
-        android:id="@+id/title_icon_image_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <TextView
+        android:id="@+id/title_number_text_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/question_icon_bg"
-        android:src="@drawable/baseline_10k_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/yellow" />
+        tools:text="1"
+        android:gravity="center"
+        android:textColor="@color/yellow"
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/title_text_view"
@@ -29,7 +31,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/progress_indicator"
         app:layout_constraintEnd_toStartOf="@+id/continue_btn"
-        app:layout_constraintStart_toEndOf="@id/title_icon_image_view"
+        app:layout_constraintStart_toEndOf="@id/title_number_text_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
         tools:text="Road Traffic Law" />

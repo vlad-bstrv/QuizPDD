@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentTopicBinding
 import com.example.quizpdd.domain.model.Topic
 import com.example.quizpdd.domain.State
+import com.example.quizpdd.ui.question.QuestionFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,7 +25,10 @@ class TopicFragment : Fragment() {
     private val binding get() = _binding!!
     private val questionGroupAdapter by lazy {
         TopicAdapter { id ->
-            Toast.makeText(requireActivity(), "$id", Toast.LENGTH_SHORT).show()
+            this.findNavController().navigate(
+                R.id.action_topicFragment_to_questionFragment,
+                bundleOf(QuestionFragment.idKey to id)
+            )
         }
     }
 
