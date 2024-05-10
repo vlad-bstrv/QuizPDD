@@ -12,4 +12,14 @@
         <item name="backgroundTint">@color/yellow_dark</item>
         <item name="android:minLines">4</item>
     </style>
+
+    <style name="MainEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">@color/background_main</item>
+        <item name="android:ems">10</item>
+        <item name="android:background">@drawable/edittext_bg</item>
+    </style>
 </resources>

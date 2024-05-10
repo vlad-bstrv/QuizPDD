@@ -6,36 +6,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.viewbinding.ViewBinding
 import com.example.quizpdd.R
-import com.example.quizpdd.databinding.FragmentLoginBinding
+import com.example.quizpdd.databinding.FragmentRegisterBinding
 
-class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+class RegisterFragment : Fragment() {
+
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.action_loginFragment_to_topicFragment)
+        binding.registerBtn.setOnClickListener {
+            view.findNavController().navigate(R.id.action_registerFragment_to_topicFragment)
         }
 
-        binding.registerTextView.setOnClickListener {
-            view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        binding.loginTextView.setOnClickListener {
+            view.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

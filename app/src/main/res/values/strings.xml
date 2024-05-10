@@ -15,4 +15,5 @@
     <string name="enter_your_email">Введите свой Email</string>
     <string name="enter_your_password">Введите свой пароль</string>
     <string name="login">Войти</string>
+    <string name="register">Зарегистрироваться</string>
 </resources>
