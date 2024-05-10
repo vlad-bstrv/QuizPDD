@@ -16,4 +16,6 @@
     <string name="enter_your_password">Введите свой пароль</string>
     <string name="login">Войти</string>
     <string name="register">Зарегистрироваться</string>
+    <string name="error_password">пароль не менее 6 символов</string>
+    <string name="error_email">не верный email</string>
 </resources>

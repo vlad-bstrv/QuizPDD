@@ -1,4 +1,4 @@
-package com.example.quizpdd.data.utils
+package com.example.quizpdd.data.remote.utils
 
 import okhttp3.Interceptor
 import okhttp3.Response
