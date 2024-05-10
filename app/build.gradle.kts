@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -15,6 +17,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -35,6 +42,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -56,4 +64,15 @@ dependencies {
 
     // Coil
     implementation(libs.coil)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
+    implementation (libs.converter.gson)
+    implementation (libs.gson)
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences)
+
 }

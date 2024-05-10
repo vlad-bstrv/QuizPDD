@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/app_pading"
+    tools:context=".ui.auth.register.RegisterFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/you_are_welcome"
+        android:textColor="@color/yellow_dark"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/email_edit_text"
+        style="@style/MainEditText"
+        android:layout_marginTop="12dp"
+        android:autofillHints="emailAddress"
+        android:hint="@string/enter_your_email"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        style="@style/MainEditText"
+        android:layout_marginTop="12dp"
+        android:autofillHints="password"
+        android:hint="@string/enter_your_password"
+        android:inputType="textPassword" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/yellow_dark"
+            android:padding="12dp"
+            android:text="@string/register"
+            android:textColor="@color/background_main"
+            android:textSize="18sp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/login_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/login"
+        android:textColor="@color/yellow_dark"
+        android:textSize="18sp" />
+</LinearLayout>
