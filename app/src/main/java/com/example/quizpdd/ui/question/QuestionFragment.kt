@@ -15,6 +15,7 @@ import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentQuestionBinding
 import com.example.quizpdd.domain.State
 import com.example.quizpdd.domain.model.Question
+import com.example.quizpdd.ui.common.UiState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,13 +43,11 @@ class QuestionFragment : Fragment() {
         fetchData()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.myFlow.collect {
-                when (it) {
-                    is State.Error -> showError(it.throwable)
-                    State.Loading -> showLoading()
-                    is State.Success -> {
-                        showSuccess(it.data)
-                    }
+            viewModel.state.collect {
+                when(it) {
+                    is UiState.Error -> showError(it.message)
+                    is UiState.IsLoading -> showLoading(it.isLoading)
+                    is UiState.Success -> showSuccess(it.data)
                 }
             }
         }
@@ -84,20 +83,21 @@ class QuestionFragment : Fragment() {
         _binding = null
     }
 
-    private fun showError(throwable: Throwable) {
-        val snackbar = Snackbar.make(binding.root, "${throwable.message}", Snackbar.LENGTH_LONG)
+    private fun showError(throwable: String) {
+        val snackbar = Snackbar.make(binding.root, throwable, Snackbar.LENGTH_LONG)
         snackbar.setAction(getString(R.string.reload)) {
             fetchData()
         }
         snackbar.show()
     }
 
-    private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) binding.progressBar.visibility = View.VISIBLE
+        else binding.progressBar.visibility = View.GONE
+
     }
 
     private fun showSuccess(data: Question) {
-        binding.progressBar.visibility = View.GONE
         binding.questionNumberTextView.text = data.title
         binding.questionTextView.text = data.question
 

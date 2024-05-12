@@ -49,7 +49,7 @@ class MainViewModel(
                 .collect{
                     hideLoading()
                     when(it) {
-                        is BaseResult.Success -> success(it.data)
+                        is BaseResult.Success -> success(it.data.sortedBy { data -> data.id })
                         is BaseResult.Error -> failed(it.error)
                     }
                 }

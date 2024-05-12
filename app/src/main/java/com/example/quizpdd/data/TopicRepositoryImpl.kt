@@ -33,9 +33,4 @@ class TopicRepositoryImpl(
             }
         }
     }
-
-    private fun getUserId() {
-
-    }
-
 }

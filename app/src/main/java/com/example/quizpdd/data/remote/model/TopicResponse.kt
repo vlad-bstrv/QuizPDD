@@ -7,19 +7,21 @@ data class TopicResponse(
     var id: Int? = null,
     @SerializedName("progress")
     var progress: Int? = null,
+    @SerializedName("topic")
+    var topics: TopicDTO? = TopicDTO(),
     @SerializedName("topic_id")
-    var topicId: TopicId? = TopicId()
+    var topicId: Int
 )
 
-data class TopicId(
+data class TopicDTO(
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("question")
-    var question: ArrayList<Question> = arrayListOf()
+    var question: ArrayList<QuestionDTO> = arrayListOf()
 
 )
 
-data class Question(
+data class QuestionDTO(
     @SerializedName("id")
     var id: Int? = null,
     @SerializedName("title")
@@ -28,9 +30,9 @@ data class Question(
 
 fun TopicResponse.toDomain(): com.example.quizpdd.domain.model.Topic {
     return com.example.quizpdd.domain.model.Topic(
-        id = this.id ?: 0,
-        title = this.topicId?.name ?: "",
+        id = this.topicId ?: 0,
+        title = this.topics?.name ?: "",
         progress = this.progress ?: 0,
-        allQuestion = this.topicId?.question?.size ?: 0
+        allQuestion = this.topics?.question?.size ?: 0
     )
 }
