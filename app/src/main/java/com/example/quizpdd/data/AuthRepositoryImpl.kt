@@ -1,6 +1,7 @@
 package com.example.quizpdd.data
 
 import com.example.quizpdd.data.datastore.TokenStore
+import com.example.quizpdd.data.datastore.UserIDStore
 import com.example.quizpdd.data.remote.QuizApi
 import com.example.quizpdd.domain.common.BaseResult
 import com.example.quizpdd.domain.model.User
@@ -10,7 +11,8 @@ import kotlinx.coroutines.flow.flow
 
 class AuthRepositoryImpl(
     private val api: QuizApi,
-    private val tokenStore: TokenStore
+    private val tokenStore: TokenStore,
+    private val userIDStore: UserIDStore
 ): AuthRepository  {
     override fun register(user: User): Flow<BaseResult<Boolean, Int>> {
         val apiRequest = flow {
@@ -30,6 +32,7 @@ class AuthRepositoryImpl(
             if (response.isSuccessful) {
                 emit(BaseResult.Success(true))
                 tokenStore.saveToken(response.body()?.token!!)
+                userIDStore.saveUserId(response.body()?.userDTO?.id!!)
             } else {
                 emit(BaseResult.Error(response.code()))
             }

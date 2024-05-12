@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentTopicBinding
 import com.example.quizpdd.domain.model.Topic
-import com.example.quizpdd.domain.State
+import com.example.quizpdd.ui.common.UiState
 import com.example.quizpdd.ui.question.QuestionFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -44,12 +44,16 @@ class TopicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchTopics()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.myFlow.collect {
+            viewModel.state.collect {
                 when (it) {
-                    is State.Error -> showError(it.throwable)
-                    State.Loading -> showLoading()
-                    is State.Success -> showSuccess(it.data)
+//                    is UiState.Error -> showError(it.throwable)
+//                    State.Loading -> showLoading()
+//                    is State.Success -> showSuccess(it.data)
+                    is UiState.Error -> showError(it.message)
+                    is UiState.IsLoading -> showLoading()
+                    is UiState.Success -> showSuccess(it.data)
                 }
             }
         }
@@ -86,8 +90,8 @@ class TopicFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
     }
 
-    private fun showError(throwable: Throwable) {
-        val snackbar = Snackbar.make(binding.root, "${throwable.message}", Snackbar.LENGTH_LONG)
+    private fun showError(throwable: String) {
+        val snackbar = Snackbar.make(binding.root, throwable, Snackbar.LENGTH_LONG)
         snackbar.setAction(getString(R.string.reload)) {
             //TODO reload data
         }
