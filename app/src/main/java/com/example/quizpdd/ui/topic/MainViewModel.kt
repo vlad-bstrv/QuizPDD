@@ -21,6 +21,10 @@ class MainViewModel(
     )
     val state: StateFlow<UiState<List<Topic>>> get() = _state
 
+    init {
+        fetchTopics()
+    }
+
     private fun setLoading(){
         _state.value = UiState.IsLoading(true)
     }
