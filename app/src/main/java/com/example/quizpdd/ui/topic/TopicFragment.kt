@@ -77,7 +77,7 @@ class TopicFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.GONE else View.VISIBLE
+        binding.progressBar.visibility = if (!isLoading) View.GONE else View.VISIBLE
     }
 
     private fun navigateToQuestion(id: Int) {
