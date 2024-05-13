@@ -6,6 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.quizpdd.R
+import com.example.quizpdd.data.datastore.TokenStore
+import com.example.quizpdd.data.datastore.UserIDStore
+import com.example.quizpdd.ui.question.QuestionFragment
+import com.example.quizpdd.ui.topic.TopicFragment
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +23,5 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
     }
 }

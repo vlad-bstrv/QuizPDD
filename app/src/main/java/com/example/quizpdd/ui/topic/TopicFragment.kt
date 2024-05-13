@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentTopicBinding
 import com.example.quizpdd.domain.model.Topic
-import com.example.quizpdd.domain.State
+import com.example.quizpdd.ui.common.UiState
 import com.example.quizpdd.ui.question.QuestionFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -25,10 +24,7 @@ class TopicFragment : Fragment() {
     private val binding get() = _binding!!
     private val questionGroupAdapter by lazy {
         TopicAdapter { id ->
-            this.findNavController().navigate(
-                R.id.action_topicFragment_to_questionFragment,
-                bundleOf(QuestionFragment.idKey to id)
-            )
+            navigateToQuestion(id)
         }
     }
 
@@ -44,38 +40,25 @@ class TopicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.myFlow.collect {
-                when (it) {
-                    is State.Error -> showError(it.throwable)
-                    State.Loading -> showLoading()
-                    is State.Success -> showSuccess(it.data)
-                }
-            }
-        }
+        observe()
+        setRecyclerView()
+    }
 
+    private fun setRecyclerView() {
         binding.recyclerViewTheme.apply {
             layoutManager =
-                LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             adapter = questionGroupAdapter
         }
+    }
 
-        binding.toggleButton.check(R.id.study_button)
-        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-
-            if (isChecked) {
-                when (checkedId) {
-                    R.id.study_button -> {
-                        Toast.makeText(group.context, "button1", Toast.LENGTH_SHORT).show()
-                    }
-
-                    R.id.training_button -> {
-                        Toast.makeText(group.context, "button2", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } else {
-                if (group.checkedButtonId == View.NO_ID) {
-                    Toast.makeText(group.context, "No aligment selected", Toast.LENGTH_SHORT).show()
+    private fun observe() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.collect {
+                when (it) {
+                    is UiState.Error -> showError(it.message)
+                    is UiState.IsLoading -> showLoading(it.isLoading)
+                    is UiState.Success -> showSuccess(it.data)
                 }
             }
         }
@@ -83,25 +66,29 @@ class TopicFragment : Fragment() {
 
     private fun showSuccess(data: List<Topic>) {
         questionGroupAdapter.differ.submitList(data)
-        binding.progressBar.visibility = View.GONE
     }
 
-    private fun showError(throwable: Throwable) {
-        val snackbar = Snackbar.make(binding.root, "${throwable.message}", Snackbar.LENGTH_LONG)
+    private fun showError(throwable: String) {
+        val snackbar = Snackbar.make(binding.root, throwable, Snackbar.LENGTH_LONG)
         snackbar.setAction(getString(R.string.reload)) {
-            //TODO reload data
+            viewModel.fetchTopics()
         }
         snackbar.show()
     }
 
-    private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (!isLoading) View.GONE else View.VISIBLE
+    }
+
+    private fun navigateToQuestion(id: Int) {
+        this.findNavController().navigate(
+            R.id.action_topicFragment_to_questionFragment,
+            bundleOf(QuestionFragment.idKey to id)
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

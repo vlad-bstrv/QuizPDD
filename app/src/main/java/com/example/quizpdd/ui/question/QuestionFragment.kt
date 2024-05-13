@@ -15,6 +15,7 @@ import com.example.quizpdd.R
 import com.example.quizpdd.databinding.FragmentQuestionBinding
 import com.example.quizpdd.domain.State
 import com.example.quizpdd.domain.model.Question
+import com.example.quizpdd.ui.common.UiState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,23 +37,35 @@ class QuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.backTextView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_questionFragment_to_topicFragment)
+            navigateToTopicFragment(it)
         }
 
         fetchData()
+        observe()
 
+        binding.nextQuestionBtn.setOnClickListener {
+            viewModel.nextQuestion()
+        }
+
+        binding.restartTextView.setOnClickListener {
+            fetchData()
+        }
+    }
+
+    private fun navigateToTopicFragment(it: View) {
+        it.findNavController().navigate(R.id.action_questionFragment_to_topicFragment)
+    }
+
+    private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.myFlow.collect {
+            viewModel.state.collect {
                 when (it) {
-                    is State.Error -> showError(it.throwable)
-                    State.Loading -> showLoading()
-                    is State.Success -> {
-                        showSuccess(it.data)
-                    }
+                    is UiState.Error -> showError(it.message)
+                    is UiState.IsLoading -> showLoading(it.isLoading)
+                    is UiState.Success -> showSuccess(it.data)
                 }
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.completionFlow.collect {
                 if (it) {
@@ -65,14 +78,6 @@ class QuestionFragment : Fragment() {
                 }
             }
         }
-
-        binding.nextQuestionBtn.setOnClickListener {
-            viewModel.nextQuestion()
-        }
-
-        binding.restartTextView.setOnClickListener {
-            fetchData()
-        }
     }
 
     private fun fetchData() {
@@ -84,26 +89,31 @@ class QuestionFragment : Fragment() {
         _binding = null
     }
 
-    private fun showError(throwable: Throwable) {
-        val snackbar = Snackbar.make(binding.root, "${throwable.message}", Snackbar.LENGTH_LONG)
+    private fun showError(throwable: String) {
+        val snackbar = Snackbar.make(binding.root, throwable, Snackbar.LENGTH_LONG)
         snackbar.setAction(getString(R.string.reload)) {
             fetchData()
         }
         snackbar.show()
     }
 
-    private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) binding.progressBar.visibility = View.VISIBLE
+        else binding.progressBar.visibility = View.GONE
+
     }
 
     private fun showSuccess(data: Question) {
-        binding.progressBar.visibility = View.GONE
         binding.questionNumberTextView.text = data.title
         binding.questionTextView.text = data.question
 
         if (data.imageUrl != null) {
             binding.questionImageView.visibility = View.VISIBLE
-            binding.questionImageView.load(data.imageUrl)
+            binding.questionImageView.load(data.imageUrl) {
+                crossfade(true)
+                crossfade(2000)
+                placeholder(R.drawable.baseline_backup_24)
+            }
         } else {
             binding.questionImageView.visibility = View.GONE
         }

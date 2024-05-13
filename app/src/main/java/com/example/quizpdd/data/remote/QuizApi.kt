@@ -1,9 +1,15 @@
 package com.example.quizpdd.data.remote
 
+import com.example.quizpdd.data.datastore.TokenStore
 import com.example.quizpdd.data.remote.model.AuthResponseDTO
+import com.example.quizpdd.data.remote.model.ProgressRequest
+import com.example.quizpdd.data.remote.model.QuestionResponseDTO
+import com.example.quizpdd.data.remote.model.TopicResponse
 import com.example.quizpdd.data.remote.utils.ApiKeyInterceptor
 import com.example.quizpdd.data.remote.utils.TokenInterceptor
 import com.example.quizpdd.domain.model.User
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -11,7 +17,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface QuizApi {
     @POST("auth/v1/token?grant_type=password")
@@ -23,26 +32,50 @@ interface QuizApi {
     suspend fun register(
         @Body user: User
     ): Response<AuthResponseDTO>
+
+    @GET("rest/v1/progress")
+    suspend fun getTopics(
+        @Query("user_id") userId: String,
+        @Query("select") select: String = "id,topic_id,topic(name,question(id,title)),progress"
+    ): Response<List<TopicResponse>>
+
+    @GET("rest/v1/question")
+    suspend fun getQuestion(
+        @Query("topic") topicId: String,
+        @Query("select") select: String = "id,title,question,image,answer(id,answer_text,is_correct)"
+    ): Response<List<QuestionResponseDTO>>
+
+    @PATCH("rest/v1/progress")
+    suspend fun saveProgress(
+        @Query("user_id") userId: String,
+        @Query("topic_id") topicId: String,
+        @Body progress: ProgressRequest
+    )
+
 }
 
 fun QuizApi(
     baseUrl: String,
     apiKey: String,
-    token: String?,
+    tokenStore: TokenStore,
     okHttpClient: OkHttpClient? = null
 ): QuizApi {
-    return retrofit(baseUrl, apiKey, token, okHttpClient).create()
+    return retrofit(baseUrl, apiKey, tokenStore, okHttpClient).create()
 }
 
 private fun retrofit(
     baseUrl: String,
     apiKey: String,
-    token: String?,
+    tokenStore: TokenStore,
     okHttpClient: OkHttpClient?
 ): Retrofit {
 
     val loggingInterceptor = HttpLoggingInterceptor()
     loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+    val token = runBlocking {
+        tokenStore.getToken().first()
+    }
 
     val modifiedOkHttpClient = if (token != null) {
         (okHttpClient?.newBuilder() ?: OkHttpClient.Builder())
@@ -56,7 +89,6 @@ private fun retrofit(
             .addInterceptor(loggingInterceptor)
             .build()
     }
-
 
     return Retrofit.Builder()
         .baseUrl(baseUrl)

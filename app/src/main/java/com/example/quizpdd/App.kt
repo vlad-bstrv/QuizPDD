@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.quizpdd.di.appModule
 import com.example.quizpdd.di.networkModule
+import com.example.quizpdd.di.vmModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -20,7 +21,11 @@ class App: Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(appModule, networkModule)
+            modules(
+                appModule,
+                networkModule,
+                vmModule
+            )
         }
     }
 }
