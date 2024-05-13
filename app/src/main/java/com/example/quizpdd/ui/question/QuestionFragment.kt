@@ -37,21 +37,35 @@ class QuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.backTextView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_questionFragment_to_topicFragment)
+            navigateToTopicFragment(it)
         }
 
         fetchData()
+        observe()
 
+        binding.nextQuestionBtn.setOnClickListener {
+            viewModel.nextQuestion()
+        }
+
+        binding.restartTextView.setOnClickListener {
+            fetchData()
+        }
+    }
+
+    private fun navigateToTopicFragment(it: View) {
+        it.findNavController().navigate(R.id.action_questionFragment_to_topicFragment)
+    }
+
+    private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                when(it) {
+                when (it) {
                     is UiState.Error -> showError(it.message)
                     is UiState.IsLoading -> showLoading(it.isLoading)
                     is UiState.Success -> showSuccess(it.data)
                 }
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.completionFlow.collect {
                 if (it) {
@@ -63,14 +77,6 @@ class QuestionFragment : Fragment() {
                     }
                 }
             }
-        }
-
-        binding.nextQuestionBtn.setOnClickListener {
-            viewModel.nextQuestion()
-        }
-
-        binding.restartTextView.setOnClickListener {
-            fetchData()
         }
     }
 
