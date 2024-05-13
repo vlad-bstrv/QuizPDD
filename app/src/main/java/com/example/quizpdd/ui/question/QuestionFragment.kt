@@ -109,7 +109,11 @@ class QuestionFragment : Fragment() {
 
         if (data.imageUrl != null) {
             binding.questionImageView.visibility = View.VISIBLE
-            binding.questionImageView.load(data.imageUrl)
+            binding.questionImageView.load(data.imageUrl) {
+                crossfade(true)
+                crossfade(2000)
+                placeholder(R.drawable.baseline_backup_24)
+            }
         } else {
             binding.questionImageView.visibility = View.GONE
         }

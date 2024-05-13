@@ -9,8 +9,9 @@
 
     <style name="AnswerButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/background_main</item>
+        <item name="android:textSize">12sp</item>
         <item name="backgroundTint">@color/yellow_dark</item>
-        <item name="android:minLines">4</item>
+        <item name="android:minLines">3</item>
     </style>
 
     <style name="MainEditText" parent="Widget.AppCompat.EditText">
